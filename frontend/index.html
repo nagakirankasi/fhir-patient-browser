@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FHIR Patient Browser</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    input, button { padding: 8px; font-size: 16px; }
+    .patient-card { border: 1px solid #ddd; padding: 16px; margin: 10px 0;
+                    border-radius: 8px; cursor: pointer; }
+    .patient-card:hover { background: #f0f7ff; }
+    #detail { background: #f9f9f9; padding: 16px; border-radius: 8px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🏥 FHIR Patient Browser</h1>
+  <p>Powered by HAPI FHIR R4 Public Sandbox</p>
+
+  <input id="searchInput" type="text" placeholder="Search by last name (e.g. Smith)" />
+  <button onclick="searchPatients()">Search</button>
+
+  <div id="results"></div>
+  <div id="detail"></div>
+
+  <script>
+    const API = "http://localhost:5000";  
+
+    async function searchPatients() {
+      const name = document.getElementById("searchInput").value;
+      const res = await fetch(`${API}/patients?name=${name}`);
+      const patients = await res.json();
+      const html = patients.map(p => `
+        <div class="patient-card" onclick="loadProfile('${p.id}')">
+          <strong>${p.name}</strong><br/>
+          DOB: ${p.dob} | Gender: ${p.gender} | ID: ${p.id}
+        </div>`).join("");
+      document.getElementById("results").innerHTML = html || "<p>No results found.</p>";
+    }
+
+    async function loadProfile(id) {
+      document.getElementById("detail").innerHTML = "Loading...";
+      const res = await fetch(`${API}/patient/${id}`);
+      const data = await res.json();
+      const conds = data.conditions.length
+        ? data.conditions.map(c => `<li>${c}</li>`).join("") : "<li>None on file</li>";
+      const meds = data.medications.length
+        ? data.medications.map(m => `<li>${m}</li>`).join("") : "<li>None on file</li>";
+      document.getElementById("detail").innerHTML = `
+        <h3>Patient Profile: ${id}</h3>
+        <h4>Conditions</h4><ul>${conds}</ul>
+        <h4>Medications</h4><ul>${meds}</ul>`;
+    }
+  </script>
+</body>
+</html>
