@@ -40,22 +40,14 @@ Built as a portfolio project to demonstrate practical healthcare data engineerin
 
 ## Live Demo
 
-🌐 **Frontend:** `http://fhir-patient-browser-ui.s3-website-us-east-1.amazonaws.com`
+🌐 **Frontend:** `http://fhir-patient-browser-frontend.s3-website-us-east-1.amazonaws.com`
 
-🔌 **API Endpoint:**
-```
-GET https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/patients?name=Smith
-GET https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/patient/{id}
-```
-
-**Try it in your browser or with curl:**
-```bash
-curl "https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/patients?name=Smith"
-```
 
 ---
 
 ## Architecture
+
+Will upload a more polished AWS Architecture diagram shortly.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -325,18 +317,18 @@ After the 12-month free tier: Lambda and CloudWatch remain free at this usage sc
 
 ## Roadmap
 
-### Phase 2 — Clinical Depth
+### Better UX and Clinical Depth
 - [ ] Observations dashboard with vitals trend charts (Chart.js)
 - [ ] ICD-10 and SNOMED CT code display alongside condition names
 - [ ] Tabbed patient profile layout (Conditions / Medications / Labs)
 - [ ] FHIR Bundle pagination for large result sets
 
-### Phase 3 — Architecture Upgrades
+### Architecture Upgrades
 - [ ] CloudFront distribution in front of S3 (HTTPS + CDN)
 - [ ] Search history persistence with DynamoDB On-Demand
 - [ ] Export patient summary as PDF
 
-### Phase 4 — Gen AI Integration
+### Gen AI Integration
 - [ ] "Summarize Patient" button using Amazon Bedrock
 - [ ] Plain-English clinical summary generated from FHIR resource data
 - [ ] Demonstrates applied Gen AI in healthcare use case
@@ -352,16 +344,6 @@ This project was built to demonstrate practical familiarity with the following s
 - **CMS Prior Authorization Rule (CMS-0057-F)** — FHIR-based prior auth API patterns
 - **HIPAA** — Security controls applied (no PHI used; production extension points documented)
 - **US Core Implementation Guide** — Resource profiles referenced for Patient and Condition resources
-
----
-
-## Author
-
-**Kasi** — Healthcare IT Solutions Architect  
-Focused on CMS interoperability compliance, FHIR-based API implementation, and payer-side data architecture.
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/yourprofile)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com/yourusername)
 
 ---
 
